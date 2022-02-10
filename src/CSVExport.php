@@ -9,34 +9,54 @@ class CSVExport
     private array $rows;
     private string $filename = 'export';
 
-    public function __construct()
-    {
-    }
-
+    /**
+     * Sets the data separator
+     * @param string $separator 'Defaults to ",".'
+     * @return CSVExport
+     */
     public function setSeparator(string $separator): CSVExport
     {
         $this->separator = $separator;
         return $this;
     }
 
+    /**
+     * Sets the HEAD row
+     * @param array $columns Array of the table headers
+     * @return CSVExport
+     */
     public function setColumns(array $columns): CSVExport
     {
         $this->columns = $columns;
         return $this;
     }
 
+    /**
+     * Sets the table BODY
+     * @param array $rows Multi-dimensional array of data, representing the table body
+     * @return CSVExport
+     */
     public function setRows(array $rows): CSVExport
     {
         $this->rows = $rows;
         return $this;
     }
 
+    /**
+     * Optional - Sets the filename of the created file. Defaults to "export"
+     * @param string $filename
+     * @return CSVExport
+     */
     public function setFilename(string $filename): CSVExport
     {
         $this->filename = $filename;
         return $this;
     }
 
+    /**
+     * Does the actual writing to file
+     * @return string Path to the generated CSV file
+     */
     public function execute()
     {
         $columns = $this->columns;
@@ -59,6 +79,10 @@ class CSVExport
         return $path;
     }
 
+    /**
+     * Converts the data from the arrays to a comma-separated string
+     * @return string String representation of the CSV
+     */
     private function generateCSV()
     {
         $csv_output = '';
